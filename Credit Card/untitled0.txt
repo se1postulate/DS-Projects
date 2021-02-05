@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Feb  5 08:50:36 2021
+
+@author: AMK
+"""
+
+
+"""
+scalar=StandardScaler()
+scalar.fit(xtrain)
+xtrain=scalar.transform(xtrain)
+xtest=scalar.transform(xtest)
+model=KNeighborsRegressor(n_neighbors=4)
+
+model.fit(xtrain,ytrain)
+score=model.score(xtest,ytest)
+ed=model.predict(xtest)
+
+#print("the mse is ",format(np.power(ed,4).mean()))
+#score=round(r2_score(ytest,ed))
+#ed=pd.Series(ed)
+
+print(score)
+
+scalar=StandardScaler()
+scalar.fit(xtrain)
+xtrain=scalar.transform(xtrain)
+xtest=scalar.transform(xtest)
+
+model=LinearRegression(fit_intercept=True)
+model.fit(xtrain,ytrain)
+print(model.coef_)
+print(len(model.coef_))
+sd=model.predict(xtest)
+#score=model.score(xtest,ytest)
+score=round(r2_score(sd,ytest),2)
+print(score)
+#print(score2)
+"""
+
+
+
+from sklearn import svm
+svr=svm.SVR(kernel='linear',gamma='auto')
+svr.fit(xtrain,ytrain)
+print(svr.coef_)
+d=svr.score(xtest,ytest)
+
+print(d)
