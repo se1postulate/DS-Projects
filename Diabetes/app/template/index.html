@@ -1,0 +1,140 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"><!-- -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diabetes Prediction</title>
+{% load static %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link href="{% static 'css/test.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Diabetes Prediction</a>
+
+        </div>
+    </nav>
+<center>
+  {% block content %}
+<br><h1>Diabetes Prediction</h1><br>
+<div id="frm" class="col-sm-12">
+        <form id="data" method="POST" action="predict">
+          {% csrf_token %}
+          <div class="row text-center" >        
+            <div class="col-sm-6 text-right m-auto" >
+           
+           <h3>  Name </h3>
+         
+             </div>
+                 <div class="col-sm-4 text-left m-auto">
+                     <input type="text" name="name" class="form-control" placeholder="Enter Your Name">
+                   
+               </div>
+             </left>
+
+           </div><br/>
+           <div class="row text-center" >        
+            <div class="col-sm-6 text-right m-auto" >
+           
+           <h3>  Gender </h3>
+         
+             </div>
+                 <div class="col-sm-4 text-left m-auto">
+                     <select class="form-control form-control-lg sel" name="gender" id="gender">
+                       <option value="Male">Male</option>
+                       <option value="Female">Female</option>
+                       <option value="Others">Others</option>
+                   </select>
+               </div>
+             </left>
+
+           </div><br/>
+           <div class="row text-center" >        
+            <div class="col-sm-6 text-right m-auto" >
+           
+           <h3>  Age </h3>
+         
+             </div>
+                 <div class="col-sm-4 text-left m-auto">
+                     <input type="text" name="age" class="form-control" placeholder="Enter Your Age">
+                   
+               </div>
+             </left>
+
+           </div><br/>
+          <div class="row text-center" >        
+             <div class="col-sm-6 text-right m-auto" >
+            
+            <h3>  Father have diabetes? </h3>
+          
+              </div>
+                  <div class="col-sm-4 text-left m-auto">
+                      <select class="form-control form-control-lg sel" name="father" id="father">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+              </left>
+
+            </div><br/>
+      <div class="row text-center">
+            <div class="col-sm-6 text-right m-auto">
+             <h3> Mother have diabetes?</h3>
+            </div>
+          <div class="col-sm-4 text-left m-auto">
+          <select class="form-control form-control-lg sel" name="mother" id="mother">
+          <option value="1" >Yes</option>
+            <option value="0" >No</option>
+          </select>
+          </div>
+      </div><br/>
+      <div class="row text-center">
+              <div class="col-sm-6 text-right m-auto">
+                     <h3>Father's Heredity have diabetes?</h3>
+              </div>
+            <div class="col-sm-4 text-left m-auto">
+                <select class="form-control form-control-lg sel" name="fatherh" id="fatherh">
+                  <option value="1" >Yes</option>
+                  <option value="0">No</option>
+                </select>
+            </div>
+      </div>
+      <br/>
+      <div class="row text-center">
+              <div class="col-sm-6 text-right m-auto">
+                 <h3>   Mother's Heredity have diabetes? </h3>
+              </div>
+            <div class="col-sm-4 text-left m-auto">
+                <select class=" form-control form-control-lg sel" name="motherh" id="motherh">
+                <option value="1">Yes</option>
+                  <option value="0" >No</option>
+                  </select>
+            </div>
+      </div><br>
+      <br/><br/>
+
+      <button type="submit" class="btn btn-success" >Submit</button>
+</form>
+</div>
+
+</center><br><br>
+</body>
+{% endblock content %}
+<footer>
+    <div class="foot">
+
+    <b>Beta Version-2021</b><br>
+    <b>Developed By :Sanjeev</a></b>
+
+    </div>
+
+</footer>
+
+</html>
