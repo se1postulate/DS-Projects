@@ -8,6 +8,7 @@ import pandas as pd
 import os
 import numpy as np
 import tensorflow as tf
+from matplotlib import pyplot as plt
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, LSTM,Dropout, Flatten,TimeDistributed, MaxPooling1D,Conv1D, MaxPool2D, BatchNormalization,MaxPooling2D,Bidirectional
 from sklearn.preprocessing import MinMaxScaler
@@ -74,29 +75,50 @@ def create_model(units, m):
     model.compile(loss='mse', optimizer='adam',metrics=['mean_squared_error'])
     return model
 
+def create_model_bilstm(units):
+    model = Sequential()
+    model.add(Bidirectional(LSTM(units = units,                             
+              return_sequences=True),
+              input_shape=(xtrain.shape[1], xtrain.shape[2])))
+    model.add(Bidirectional(LSTM(units = units)))
+    model.add(Dense(1))
+    #Compile model
+    model.compile(loss='mse', optimizer='adam',metrics=['mean_squared_error'])
+    return model
 
+def fit_model(model):
+    early_stop = tf.keras.callbacks.EarlyStopping(monitor = 'val_loss',
+                                               patience = 10)
+    history = model.fit(xtrain, ytrain, epochs = 100,  
+                        validation_split = 0.2, batch_size = 32, 
+                        shuffle = False, callbacks = [early_stop])
+    return history
+
+
+# GRU and LSTM
 model_gru = create_model(64, GRU)
 model_lstm = create_model(64, LSTM)
 
 
+# BiLSTM
+model_bilstm = create_model_bilstm(64)
 
-model_gru.fit(xtrain, ytrain,batch_size=64,epochs=20,validation_data=(xtest, ytest))
+#compare to GRU AND LSTM BiLSTM Gives best result
 
 
+history_bilstm = fit_model(model_bilstm)
+history_lstm = fit_model(model_lstm)
+history_gru = fit_model(model_gru)
 
+# Plot train loss and validation loss
+def plot_loss (history):
+    plt.figure(figsize = (10, 6))
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.ylabel('Loss')
+    plt.xlabel('epoch')
+    plt.legend(['Train loss', 'Validation loss'], loc='upper right')
+plot_loss (history_bilstm)
+plot_loss (history_lstm)
+plot_loss (history_gru)
 
-# model = Sequential()
-# # Adding a Bidirectional LSTM layer
-# model.add(Bidirectional(LSTM(64,return_sequences=True, dropout=0.5, input_shape=(xtrain.shape[1], xtrain.shape[-1]))))
-# model.add(Bidirectional(LSTM(20, dropout=0.5)))
-
-# model.add(Dense(1))
-
-# model.compile(loss='mse', optimizer='rmsprop',metrics=['mean_squared_error'])
-
-# xtest=xtest.astype(float)
-# ytest=ytest.astype(float)
-# xtrain=xtrain.astype(float)
-# ytrain=ytrain.astype(float)
-
-# model.fit(xtrain, ytrain,batch_size=64,epochs=20,validation_data=(xtest, ytest))
